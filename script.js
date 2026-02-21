@@ -241,6 +241,43 @@ function submitForm() {
     const btn = document.querySelector('.btn-submit');
     const originalText = btn.innerHTML;
     
+    // Get form fields
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    // Validation
+    if (!name) {
+        showError('Please enter your name');
+        return;
+    }
+    
+    if (!email) {
+        showError('Please enter your email');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showError('Please enter a valid email address');
+        return;
+    }
+    
+    if (!subject) {
+        showError('Please enter a subject');
+        return;
+    }
+    
+    if (!message) {
+        showError('Please enter your message');
+        return;
+    }
+    
+    if (message.length < 10) {
+        showError('Message must be at least 10 characters long');
+        return;
+    }
+    
     // Show loading
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     btn.disabled = true;
@@ -281,6 +318,69 @@ function submitForm() {
         }, 3000);
     });
 }
+
+// Email validation
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Show error message
+function showError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'form-error';
+    errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    errorDiv.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #ef4444;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+    `;
+    
+    document.body.appendChild(errorDiv);
+    
+    setTimeout(() => {
+        errorDiv.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => errorDiv.remove(), 300);
+    }, 3000);
+}
+
+// Add animation styles
+const errorAnimationStyle = document.createElement('style');
+errorAnimationStyle.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(errorAnimationStyle);
 
 // Animate elements on scroll with enhanced effects
 const observerOptions = {
