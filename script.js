@@ -643,3 +643,25 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Elements not found!', {readMoreBtn, extraText});
     }
 });
+
+// Toggle Blog Content Function
+function toggleBlog(previewId, fullId, button) {
+    const preview = document.getElementById(previewId);
+    const fullContent = document.getElementById(fullId);
+    const buttonText = button.querySelector('span');
+    const buttonIcon = button.querySelector('i');
+    
+    if (fullContent.style.display === 'none' || fullContent.style.display === '') {
+        preview.style.display = 'none';
+        fullContent.style.display = 'block';
+        buttonText.textContent = 'See Less';
+        buttonIcon.style.transform = 'rotate(180deg)';
+        button.classList.add('active');
+    } else {
+        preview.style.display = 'block';
+        fullContent.style.display = 'none';
+        buttonText.textContent = 'See More';
+        buttonIcon.style.transform = 'rotate(0deg)';
+        button.classList.remove('active');
+    }
+}
