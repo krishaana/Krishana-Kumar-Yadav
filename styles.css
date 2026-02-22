@@ -3881,14 +3881,43 @@ body.dark-theme .infinity-academy {
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
 }
 
-.academy-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.academy-content { 
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
 
-.academy-video {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    animation: fadeInUp 0.8s ease-out;
+.academy-playlists {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+}
+
+.academy-playlists::-webkit-scrollbar {
+    height: 8px;
+}
+
+.academy-playlists::-webkit-scrollbar-track {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.academy-playlists::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.academy-playlists::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+.playlist-item {
+    min-width: 500px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
 }
 
 .video-wrapper {
@@ -3896,6 +3925,8 @@ body.dark-theme .infinity-academy {
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
+    border-radius: 15px;
+    box-shadow: var(--shadow-lg);
 }
 
 .video-wrapper iframe {
@@ -3905,38 +3936,13 @@ body.dark-theme .infinity-academy {
     width: 100%;
     height: 100%;
     border: none;
+    border-radius: 15px;
 }
 
-.academy-features {
-    background: var(--card-bg);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: var(--shadow-md);
-    animation: fadeInUp 0.8s ease-out 0.2s backwards;
-}
-
-body.dark-theme .academy-features {
-    background: #1E293B;
-}
-
-.academy-features h3 {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-}
-
-.academy-features h3 i {
-    color: var(--accent-color);
-    font-size: 2rem;
-}
-
-.features-grid {
+.features-grid-full {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 }
 
 .feature-item {
@@ -3977,61 +3983,13 @@ body.dark-theme .feature-item {
     line-height: 1.6;
 }
 
-.academy-cta {
-    text-align: center;
-    margin-top: 3rem;
-    animation: fadeInUp 0.8s ease-out 0.4s backwards;
-}
-
-.btn-playstore {
-    background: linear-gradient(135deg, #34A853, #0F9D58);
-    color: white;
-    padding: 1.2rem 2.5rem;
-    font-size: 1.1rem;
-    box-shadow: 0 6px 25px rgba(52, 168, 83, 0.3);
-}
-
-.btn-playstore:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 35px rgba(52, 168, 83, 0.4);
-}
-
-.btn-playstore i {
-    font-size: 1.5rem;
-}
-
 @media (max-width: 768px) {
-    .features-grid {
+    .features-grid-full {
         grid-template-columns: 1fr;
     }
     
-    .academy-features {
-        padding: 1.5rem;
-    }
-}
-
-
-
-.academy-left,
-.academy-right {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.academy-video {
-    margin-bottom: 0;
-}
-
-.academy-left .features-grid,
-.academy-right .features-grid {
-    display: grid;
-    gap: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .academy-content {
-        grid-template-columns: 1fr;
+    .playlist-item {
+        min-width: 90vw;
     }
 }
 
